@@ -2,6 +2,7 @@ module.exports = {
   root: true,
   env: {
     browser: true,
+    es6: true,
     node: true
   },
   parserOptions: {
@@ -11,11 +12,13 @@ module.exports = {
     '@nuxtjs',
     'plugin:nuxt/recommended'
   ],
-  globals:{
-    'BigInt':true
+  globals: {
+    BigInt: true
   },
   // add your custom rules here
   rules: {
+    'quote-props': 'off',
+    'indent': ['error', 2, { 'SwitchCase': 1 }],
     'no-irregular-whitespace': 'off',
     'no-useless-escape': 'off',
     'no-console': 'off',

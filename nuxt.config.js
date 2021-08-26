@@ -1,47 +1,42 @@
-const config = require('./src/config')
-// const server = require('./server')
-// const serverConfig = require('./server/api/config')
-const now = new Date()
-module.exports = {
-  // mode: 'spa',
-  mode: 'universal',
-  /**
-   * common settings
-   */
-  buildDir: '.dist',
-  srcDir: 'src/',
-  env: {
-    BUILD_VERSION: now.getFullYear() + (now.getMonth() + 1) + now.getDate()
-  },
+import cfg from './client/config'
+export default {
+  ssr: false,
+  srcDir: 'client/',
   head: {
-    title: config.website.name + ',' + config.website.desc,
+    title: cfg.site.name,
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { name: 'keywords', content: config.website.keyword || '' },
-      { hid: 'description', name: 'description', content: config.website.desc || '' }
+      {
+        name: 'viewport',
+        content: 'width=device-width,  initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no, user-scalable=0'
+      },
+      {
+        name: 'keywords',
+        content: cfg.site.keywords
+      },
+      {
+        hid: 'description',
+        name: 'description',
+        content: cfg.site.description || process.env.npm_package_description
+      }
     ],
     link: [
-      // favicon generator:
-      { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
-      { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
-      { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' }
-      // { rel: 'manifest', href: '/site.webmanifest' }
-      // { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css' },
-      // { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css' },
-      // { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css' }
-    ],
-    script: [
-      // format: {src: '', defer:true}
+      {
+        rel: 'shortcut icon',
+        href: '/favicon.ico'
+      }
     ]
   },
   /*
     ** loading bar
     */
-  loading: { color: '#409eff', height: '5px' },
-  // Only for SPA loading bar
+  loading: {
+    color: '#409eff',
+    height: '5px'
+  },
+  // loading
   loadingIndicator: {
-    name: '~/static/loading.html',
+    name: '@/static/loading.html',
     color: '#3B8070',
     background: 'white'
   },
@@ -50,105 +45,37 @@ module.exports = {
     '~/assets/css/app.scss'
   ],
   plugins: [
-    { src: '~/plugins/nuxt-axios', ssr: false },
-    { src: '~/plugins/element-ui', ssr: false }
-  ],
-  router: {
-    middleware: [],
-    extendRoutes (routes, resolve) {
-      // const profileIndex = routes.findIndex(route => route.name === 'profile')
-      // routes[profileIndex] = {
-      //   ...routes[profileIndex],
-      //   components: {
-      //     default: routes[profileIndex].component,
-      //     notification: resolve(__dirname, 'components/mainTop.vue')
-      //   },
-      //   chunkNames: {
-      //     top: 'components/mainTop'
-      //   }
-      // }
+    {
+      src: '@/plugins/axios',
+      ssr: false
+    },
+    {
+      src: '@/plugins/vuex-persistedstate',
+      ssr: false
     }
-  },
+  ],
   modules: [
     ['@nuxtjs/axios', {
       progress: true,
       retry: false,
-      credentials: true
+      credentials: true,
+      timeout: cfg.http.timeout
     }],
-    ['@nuxtjs/device'],
     ['@nuxtjs/sitemap', {
-      hostname: config.website.url,
       path: 'sitemap_index.xml',
       gzip: false,
-      exclude: [
-        '/admin/**'
-      ]
-    }],
-    ['@nuxtjs/robots', [
-      {
-        UserAgent: '*'
-        // Disallow: serverConfig.prefix
-      }
-    ]]
+      exclude: []
+    }]
   ],
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module'
   ],
-  build: {
-    // CDN config: https://nuxtjs.org/api/configuration-build/#publicpath
-    // publicPath: config.serverUrls.CDN_BASE_URL,
-    extractCSS: true,
-    // analysis package size
-    analyze: {
-      analyzerMode: process.env.NODE_ENV === 'development' ? 'static' : 'disabled'
-    },
-    // vendor size
-    optimization: {
-      splitChunks: {
-        chunks: 'all',
-        automaticNameDelimiter: '.',
-        name: 'dist',
-        maxSize: 256000
-      }
-    },
-    babel: {
-      presets: ['@nuxt/babel-preset-app'],
-      comments: true,
-      plugins: [
-        [
-          'component',
-          {
-            libraryName: 'element-ui',
-            styleLibraryName: 'theme-chalk'
-          }
-        ]
-      ]
-    },
-    // 默认babel不会编译node-modules目录的文件,对于一些包采用源码形式打包的将不被转译
-    transpile: [
-      // element-ui
-      /^element-ui/
-    ],
-    extend (config, ctx) {
-      if (ctx.isDev) {
-        config.devtool = 'source-map'
-        /*
-                 ** Run ESLINT on save
-                */
-        if (ctx.isClient) {
-          config.module.rules.push({
-            enforce: 'pre',
-            test: /\.(js|vue)$/,
-            loader: 'eslint-loader',
-            exclude: /(node_modules)/
-          })
-        }
-      }
-    }
-  },
-  // 服务端渲染组件
+  build: {},
   serverMiddleware: [
-    // { path: serverConfig.prefix, handler: server }
+    {
+      path: require('./server/config').apiPrefix,
+      handler: require('./server')
+    }
   ]
 }

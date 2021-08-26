@@ -1,12 +1,12 @@
 module.exports = {
   apps: [{
-    name: 'cvr',
+    name: 'www',
     cwd: './',
     script: './node_modules/nuxt-start/bin/nuxt-start.js',
+    autorestart: true,
     watch: [
-      'dist',
-      '.dist',
-      '_nuxt'
+      '_nuxt',
+      'dist'
     ]
   }]
 }

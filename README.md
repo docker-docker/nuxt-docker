@@ -1,12 +1,8 @@
-# nuxt-docker
 
-A slim base version image for nuxt application
 
-# How to use this `Dockerfile`
+## eslint configuration
 
-```shell
-
-$ docker build -f Dockerfile -t test:nuxt .
-$ docker run --name test -d -p 3000:3000 -v $PWD:/opt/app test:nuxt
-
-```
+In IDEA the default eslint configuration is disabled, you need to turn on it.From
+**File | Settings | Languages & Frameworks | JavaScript | Code Quality Tools | ESLint**,
+you need to check "**Automatic EsLint Configuration**". After that, you can run the "**Fix ESLint Problems**" in any
+project folder with right click options.
