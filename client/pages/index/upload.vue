@@ -18,7 +18,6 @@
             :auto-upload="true"
             :file-list="uploadFileList"
             :action="uploadAction"
-            :limit="uploadLimit"
             :before-upload="handleUploadBefore"
             :http-request="handleUploadHttpRequest"
             :on-success="handleUploadSuccess"
@@ -59,7 +58,7 @@ export default {
       uploadDisabled: false,
       uploadAction: '',
       uploadToken: '',
-      uploadLimit: 8,
+      uploadLimit: 1024,
       uploadFileList: [],
       uploadFileUrl: '',
       uploadPreviewDlgShow: false,

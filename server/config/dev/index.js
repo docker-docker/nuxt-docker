@@ -1,6 +1,7 @@
 const cfg = {
   upload: {
     prefix: 'static',
+    maxSize: 1024 * 1024 * 1024,
     location: 'D:\\upload'
   },
   db: {

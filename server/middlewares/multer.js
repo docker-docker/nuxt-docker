@@ -47,8 +47,8 @@ const multerUpload = multer({
     }
   }),
   limits: {
-    // 15M
-    fileSize: 1024 * 1024 * 15
+    // 1024M
+    fileSize: cfg.upload.maxSize
   },
   fileFilter: (req, file, cb) => {
     cb(null, true)
