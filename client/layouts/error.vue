@@ -1869,7 +1869,7 @@
       </div>
       <p class="description">
         <el-button style="width: 100px;" type="primary" @click="goHome">
-          返回首页
+          返回
         </el-button>
       </p>
     </div>
@@ -1906,7 +1906,9 @@ export default {
     }
   },
   methods: {
-    goHome () {}
+    goHome () {
+      this.$router.go(-1)
+    }
   }
 }
 </script>

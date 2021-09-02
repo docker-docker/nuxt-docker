@@ -1,5 +1,5 @@
-const {validationResult} = require('express-validator')
-const Result = require('../commons/result')
+const { validationResult } = require('express-validator')
+const { Result, ResultCode } = require('../commons/result')
 const cfg = require('../config')
 const fileService = require('../services/file')
 const file = {
@@ -17,7 +17,7 @@ const file = {
     const result = new Result()
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-      result.code = result.CODE_INVALID_PARAMS
+      result.code = ResultCode.CODE_INVALID_PARAMS
       result.data = errors.array()
       return res.json(result)
     }
@@ -28,12 +28,12 @@ const file = {
       const files = req.files
       let resData = {}
 
-      files.forEach((file) => {
-        const originalFileName = file.originalname
-        const fileName = file.filename
-        const uploadSize = file.size
+      files.forEach((f) => {
+        const originalFileName = f.originalname
+        const fileName = f.filename
+        const uploadSize = f.size
         // upload file into server local path, could be: ....\upload\20210826\223017226284568576.jpg
-        const uploadPath = file.path
+        const uploadPath = f.path
 
         // base upload url,like http://localhost:3000/api/static
         const baseUrl = req.protocol + '://' + req.get('host') + cfg.apiPrefix + '/' + cfg.upload.prefix
@@ -52,20 +52,20 @@ const file = {
         const saveResponse = fileService.saveFile(resData)
         console.log(`保存文件返回: ${JSON.stringify(saveResponse)}`)
       })
-      result.code = result.CODE_SUCCESS
+      result.code = ResultCode.CODE_SUCCESS
       result.data = resData
-      res.json(result)
+      return res.json(result)
     } catch (err) {
-      result.code = result.CODE_INTERNAL_ERROR
+      result.code = ResultCode.CODE_INTERNAL_ERROR
       result.message = JSON.stringify(err)
-      res.json(result)
+      return res.json(result)
     }
   },
   delete: (req, res) => {
     const result = new Result()
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-      result.code = result.CODE_INVALID_PARAMS
+      result.code = ResultCode.CODE_INVALID_PARAMS
       result.data = errors.array()
       return res.json(result)
     }
@@ -76,17 +76,21 @@ const file = {
       // 删除数据库
       const delResponse = fileService.deleteFile(url)
       console.log(`删除文件返回: ${JSON.stringify(delResponse)}`)
+      result.code = ResultCode.CODE_SUCCESS
+      const resData = { url, token }
+      result.data = resData
+      return res.json(result)
     } catch (err) {
-      result.code = result.CODE_INTERNAL_ERROR
+      result.code = ResultCode.CODE_INTERNAL_ERROR
       result.message = JSON.stringify(err)
-      res.json(result)
+      return res.json(result)
     }
   },
   getFileListByToken: (req, res) => {
     const result = new Result()
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-      result.code = result.CODE_INVALID_PARAMS
+      result.code = ResultCode.CODE_INVALID_PARAMS
       result.data = errors.array()
       return res.json(result)
     }
@@ -97,9 +101,9 @@ const file = {
       const listResponse = fileService.getFilesByToken(params)
       console.log(`获取文件列表返回: ${JSON.stringify(listResponse)}`)
     } catch (err) {
-      result.code = result.CODE_INTERNAL_ERROR
+      result.code = ResultCode.CODE_INTERNAL_ERROR
       result.message = JSON.stringify(err)
-      res.json(result)
+      return res.json(result)
     }
   },
   getFileUrl: (path) => {

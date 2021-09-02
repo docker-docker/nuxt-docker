@@ -1,6 +1,6 @@
 import cfg from './client/config'
 export default {
-  ssr: false,
+  ssr: true,
   srcDir: 'client/',
   head: {
     title: cfg.site.name,
@@ -46,11 +46,15 @@ export default {
   ],
   plugins: [
     {
+      src: '@/plugins/vuex-persistedstate',
+      ssr: false
+    },
+    {
       src: '@/plugins/axios',
       ssr: false
     },
     {
-      src: '@/plugins/vuex-persistedstate',
+      src: '@/plugins/element-ui',
       ssr: false
     }
   ],

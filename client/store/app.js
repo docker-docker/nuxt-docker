@@ -1,4 +1,6 @@
+import cfg from '@/config'
 export const state = () => ({
+  site: cfg.site,
   // add states here
   loginUserInfo: {}
 })
