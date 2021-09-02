@@ -75,7 +75,37 @@ export default {
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module'
   ],
-  build: {},
+  build: { // CDN 服务器
+    // 生产环境配置此处cdn,参考: https://nuxtjs.org/api/configuration-build/#publicpath
+    publicPath: cfg.CDNBaseUrl,
+    extractCSS: true,
+    analyze: false,
+    babel: {
+      presets ({ isServer }) {
+        return [
+          [
+            require.resolve('@nuxt/babel-preset-app'),
+            // require.resolve('@nuxt/babel-preset-app-edge'), // For nuxt-edge users
+            {
+              buildTarget: isServer ? 'server' : 'client'
+            }
+          ]
+        ]
+      },
+      plugins: [
+        [
+          'component',
+          {
+            libraryName: 'element-ui',
+            styleLibraryName: 'theme-chalk'
+          }
+        ]
+      ],
+      comments: true
+    },
+    // babel
+    transpile: [/^element-ui/]
+  },
   serverMiddleware: [
     {
       path: require('./server/config').apiPrefix,

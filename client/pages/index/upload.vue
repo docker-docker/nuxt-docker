@@ -18,7 +18,6 @@
             :auto-upload="true"
             :file-list="uploadFileList"
             :action="uploadAction"
-            accept="image/*"
             :limit="uploadLimit"
             :before-upload="handleUploadBefore"
             :http-request="handleUploadHttpRequest"
