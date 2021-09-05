@@ -10,9 +10,10 @@ const enumerateErrorFormat = winston.format((info) => {
   }
   return info
 })
+
 // 参考文档: https://github.com/winstonjs/logform
 const consoleLoggerFormat = winston.format.combine(enumerateErrorFormat(),
-  winston.format.colorize({ level: true }),
+  winston.format.colorize({ all: true }),
   winston.format.errors({ stack: true }),
   winston.format.timestamp(),
   winston.format.splat(),
@@ -37,8 +38,7 @@ const logger = winston.createLogger({
 const consoleTransport = new winston.transports.Console({
   level: 'debug',
   format: consoleLoggerFormat,
-  handleExceptions: true,
-  colorize: true
+  handleExceptions: true
 })
 const dailyRotateFileTransport = new winston.transports.DailyRotateFile({
   level: 'info',
@@ -48,21 +48,25 @@ const dailyRotateFileTransport = new winston.transports.DailyRotateFile({
   handleExceptions: true,
   humanReadableUnhandledException: true,
   maxsize: '10m', // 10MB
-  maxFiles: '1d',
-  colorize: false
+  maxFiles: '1d'
 })
 // override the transports
 if (isDev) {
+  winston.addColors({
+    info: 'bold blue',
+    warn: 'italic yellow',
+    error: 'bold red',
+    debug: 'green'
+  })
   logger.add(consoleTransport)
   logger.add(dailyRotateFileTransport)
 } else {
   logger.add(dailyRotateFileTransport)
 }
-
 module.exports = logger
 // below code is used for morgan
-module.exports.stream = {
-  write (message, encoding) {
-    logger.info(message)
-  }
-}
+// module.exports.stream = {
+//   write (message, encoding) {
+//     logger.info(message)
+//   }
+// }
