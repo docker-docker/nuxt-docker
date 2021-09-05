@@ -5,10 +5,6 @@ const multer = require('multer')
 const Snowflake = require('better-snowflake')
 const cfg = require('../config')
 const idWorker = new Snowflake(cfg.snowflake.worker_id, cfg.snowflake.datacenter_id)
-const newDate = new Date()
-const mm = newDate.getMonth() + 1
-const dd = newDate.getDate()
-const now = (newDate.getFullYear() + ((mm > 9 ? '' : '0') + mm) + ((dd > 9 ? '' : '0') + dd)).toString()
 // 文件目录
 // const rootPwd = process.cwd()
 const uploadDirectory = cfg.upload.location
@@ -36,13 +32,16 @@ fs.existsSync(uploadDirectory) || fs.mkdirSync(uploadDirectory)
 const multerUpload = multer({
   storage: multer.diskStorage({
     destination: (req, res, cb) => {
+      const newDate = new Date()
+      const mm = newDate.getMonth() + 1
+      const dd = newDate.getDate()
+      const now = (newDate.getFullYear() + ((mm > 9 ? '' : '0') + mm) + ((dd > 9 ? '' : '0') + dd)).toString()
       const newDirectory = path.join(uploadDirectory, now)
-      fs.mkdirSync(newDirectory, { recursive: true })
+      fs.existsSync(newDirectory) || fs.mkdirSync(newDirectory, { recursive: true })
       cb(null, newDirectory)
     },
     filename: (req, file, cb) => {
       // 原始文件名称 file.originalname
-      // cb(null, idWorker.nextId().toString() + '-' + Date.now() + path.extname(file.originalname))
       cb(null, idWorker.nextId().toString() + path.extname(file.originalname))
     }
   }),

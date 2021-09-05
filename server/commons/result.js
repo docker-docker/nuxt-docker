@@ -11,6 +11,7 @@ class Result {
     this.data = {}
   }
 }
+
 class ResultCode {
   // common response code
   static CODE_SUCCESS = 0

@@ -1,4 +1,5 @@
 import cfg from './client/config'
+
 export default {
   ssr: true,
   srcDir: 'client/',

@@ -4,7 +4,8 @@
  */
 export const snowflakeId = function () {
   const Snowflake = require('better-snowflake')
-  const workerId = randomNum(0, 31); const datacenterId = randomNum(0, 31)
+  const workerId = randomNum(0, 31)
+  const datacenterId = randomNum(0, 31)
   const idWorker = new Snowflake(workerId, datacenterId)
   const uuid = idWorker.nextId()
   return uuid
@@ -26,7 +27,9 @@ export const randomNum = function (min, max) {
 export const randomNumWithLen = (len, date) => {
   let random = ''
   random = Math.ceil(Math.random() * 100000000000000).toString().substr(0, len || 4)
-  if (date) { random = random + Date.now() }
+  if (date) {
+    random = random + Date.now()
+  }
   return random
 }
 /**
@@ -74,7 +77,9 @@ export const numberToChinese = (num) => {
         break
       case 4:
         if (!new RegExp('0{4}//d{' + (a[0].length - i - 1) + '}$')
-          .test(a[0])) { re = BB[4] + re }
+          .test(a[0])) {
+          re = BB[4] + re
+        }
         break
       case 8:
         re = BB[5] + re
@@ -82,18 +87,28 @@ export const numberToChinese = (num) => {
         k = 0
         break
     }
-    if (k % 4 === 2 && a[0].charAt(i + 2) !== 0 && a[0].charAt(i + 1) === 0) { re = AA[0] + re }
-    if (a[0].charAt(i) !== 0) { re = AA[a[0].charAt(i)] + BB[k % 4] + re }
+    if (k % 4 === 2 && a[0].charAt(i + 2) !== 0 && a[0].charAt(i + 1) === 0) {
+      re = AA[0] + re
+    }
+    if (a[0].charAt(i) !== 0) {
+      re = AA[a[0].charAt(i)] + BB[k % 4] + re
+    }
     k++
   }
 
   if (a.length > 1) { // 加上小数部分(如果有小数部分)
     re += BB[6]
-    for (let i = 0; i < a[1].length; i++) { re += AA[a[1].charAt(i)] }
+    for (let i = 0; i < a[1].length; i++) {
+      re += AA[a[1].charAt(i)]
+    }
   }
-  if (re === '一十') { re = '十' }
+  if (re === '一十') {
+    re = '十'
+  }
   // eslint-disable-next-line unicorn/prefer-starts-ends-with
-  if (re.match(/^一/) && re.length === 3) { re = re.replace('一', '') }
+  if (re.match(/^一/) && re.length === 3) {
+    re = re.replace('一', '')
+  }
   return re
 }
 
@@ -105,14 +120,16 @@ export const changeToChinese = (Num) => {
   if (typeof Num === 'number') {
     // eslint-disable-next-line no-new-wrappers
     Num = new String(Num)
-  };
+  }
+  ;
   Num = Num.replace(/,/g, '') // 替换tomoney()中的“,”
   Num = Num.replace(/ /g, '') // 替换tomoney()中的空格
   Num = Num.replace(/￥/g, '') // 替换掉可能出现的￥字符
   if (isNaN(Num)) { // 验证输入的字符是否为数字
     // alert("请检查小写金额是否正确");
     return ''
-  };
+  }
+  ;
   // 字符处理完毕后开始转换，采用前后两部分分别转换
   const part = String(Num).split('.')
   // eslint-disable-next-line no-var
@@ -165,25 +182,37 @@ export const changeToChinese = (Num) => {
         tmpnewchar = tmpnewchar + '元'
         break
       case 1:
-        if (perchar !== 0) { tmpnewchar = tmpnewchar + '拾' }
+        if (perchar !== 0) {
+          tmpnewchar = tmpnewchar + '拾'
+        }
         break
       case 2:
-        if (perchar !== 0) { tmpnewchar = tmpnewchar + '佰' }
+        if (perchar !== 0) {
+          tmpnewchar = tmpnewchar + '佰'
+        }
         break
       case 3:
-        if (perchar !== 0) { tmpnewchar = tmpnewchar + '仟' }
+        if (perchar !== 0) {
+          tmpnewchar = tmpnewchar + '仟'
+        }
         break
       case 4:
         tmpnewchar = tmpnewchar + '万'
         break
       case 5:
-        if (perchar !== 0) { tmpnewchar = tmpnewchar + '拾' }
+        if (perchar !== 0) {
+          tmpnewchar = tmpnewchar + '拾'
+        }
         break
       case 6:
-        if (perchar !== 0) { tmpnewchar = tmpnewchar + '佰' }
+        if (perchar !== 0) {
+          tmpnewchar = tmpnewchar + '佰'
+        }
         break
       case 7:
-        if (perchar !== 0) { tmpnewchar = tmpnewchar + '仟' }
+        if (perchar !== 0) {
+          tmpnewchar = tmpnewchar + '仟'
+        }
         break
       case 8:
         tmpnewchar = tmpnewchar + '亿'
@@ -236,13 +265,19 @@ export const changeToChinese = (Num) => {
           tmpnewchar = '玖' + tmpnewchar
           break
       }
-      if (i === 0) { tmpnewchar = tmpnewchar + '角' }
-      if (i === 1) { tmpnewchar = tmpnewchar + '分' }
+      if (i === 0) {
+        tmpnewchar = tmpnewchar + '角'
+      }
+      if (i === 1) {
+        tmpnewchar = tmpnewchar + '分'
+      }
       newchar = newchar + tmpnewchar
     }
   }
   // 替换所有无用汉字
-  while (newchar.search('零零') !== -1) { newchar = newchar.replace('零零', '零') }
+  while (newchar.search('零零') !== -1) {
+    newchar = newchar.replace('零零', '零')
+  }
   newchar = newchar.replace('零亿', '亿')
   newchar = newchar.replace('亿万', '亿')
   newchar = newchar.replace('零万', '万')
@@ -285,7 +320,9 @@ export const formatMoney = function (money) {
  * @return {boolean}
  */
 export const pointInsideCircle = function (point, circle, r) {
-  if (r === 0) { return false }
+  if (r === 0) {
+    return false
+  }
   const dx = circle[0] - point[0]
   const dy = circle[1] - point[1]
   return dx * dx + dy * dy <= r * r

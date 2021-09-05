@@ -45,6 +45,7 @@
 import { mapGetters } from 'vuex'
 import { snowflakeId } from '@/assets/js/NumberUtil'
 import upload from '@/api/upload'
+
 export default {
   name: 'Upload',
   data () {

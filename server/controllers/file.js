@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator')
 const { Result, ResultCode } = require('../commons/result')
+const logger = require('../middlewares/logger')
 const cfg = require('../config')
 const fileService = require('../services/file')
 const file = {
@@ -19,12 +20,13 @@ const file = {
     if (!errors.isEmpty()) {
       result.code = ResultCode.CODE_INVALID_PARAMS
       result.data = errors.array()
+      logger.error('Upload file validation errors: %s', errors.array())
       return res.json(result)
     }
     try {
       const token = req.body.token || ''
       const userId = req.body.userId || ''
-      console.log(`Upload file token is: ${token}, userId is: ${userId}`)
+      logger.info(`Upload file token is: ${token}, userId is: ${userId}`)
       const files = req.files
       let resData = {}
 
@@ -50,7 +52,7 @@ const file = {
         }
         // 插入数据库
         const saveResponse = fileService.saveFile(resData)
-        console.log(`保存文件返回: ${JSON.stringify(saveResponse)}`)
+        logger.info(`Saving file return: ${JSON.stringify(saveResponse)}`)
       })
       result.code = ResultCode.CODE_SUCCESS
       result.data = resData
@@ -58,6 +60,7 @@ const file = {
     } catch (err) {
       result.code = ResultCode.CODE_INTERNAL_ERROR
       result.message = JSON.stringify(err)
+      logger.error('Upload file errors: %s', JSON.stringify(err))
       return res.json(result)
     }
   },
@@ -67,6 +70,7 @@ const file = {
     if (!errors.isEmpty()) {
       result.code = ResultCode.CODE_INVALID_PARAMS
       result.data = errors.array()
+      logger.error('Delete file validation errors: %s', errors.array())
       return res.json(result)
     }
     try {
@@ -75,7 +79,7 @@ const file = {
       console.log(`delete file: ${url}, token: ${token}`)
       // 删除数据库
       const delResponse = fileService.deleteFile(url)
-      console.log(`删除文件返回: ${JSON.stringify(delResponse)}`)
+      logger.info(`Delete file return: ${JSON.stringify(delResponse)}`)
       result.code = ResultCode.CODE_SUCCESS
       const resData = { url, token }
       result.data = resData
@@ -83,6 +87,7 @@ const file = {
     } catch (err) {
       result.code = ResultCode.CODE_INTERNAL_ERROR
       result.message = JSON.stringify(err)
+      logger.error('Delete file errors: %s', JSON.stringify(err))
       return res.json(result)
     }
   },
@@ -92,6 +97,7 @@ const file = {
     if (!errors.isEmpty()) {
       result.code = ResultCode.CODE_INVALID_PARAMS
       result.data = errors.array()
+      logger.error('Get file list validation errors: %s', errors.array())
       return res.json(result)
     }
     try {
@@ -99,10 +105,11 @@ const file = {
       // 查询数据库
       const params = [token]
       const listResponse = fileService.getFilesByToken(params)
-      console.log(`获取文件列表返回: ${JSON.stringify(listResponse)}`)
+      logger.info(`获取文件列表返回: ${JSON.stringify(listResponse)}`)
     } catch (err) {
       result.code = ResultCode.CODE_INTERNAL_ERROR
       result.message = JSON.stringify(err)
+      logger.error('Get file list errors: %s', JSON.stringify(err))
       return res.json(result)
     }
   },

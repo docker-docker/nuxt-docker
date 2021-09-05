@@ -1,4 +1,5 @@
 const cfg = {
+  logs: '/www/logs',
   upload: {
     prefix: 'static',
     maxSize: 1024 * 1024 * 1024,

@@ -18,7 +18,7 @@ module.exports = {
   // add your custom rules here
   rules: {
     'quote-props': 'off',
-    'indent': ['error', 2, { 'SwitchCase': 1 }],
+    'indent': ['error', 2, {'SwitchCase': 1}],
     'no-irregular-whitespace': 'off',
     'no-useless-escape': 'off',
     'no-console': 'off',

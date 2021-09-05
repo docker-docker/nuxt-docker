@@ -5,6 +5,7 @@ package-lock.json
 # logs
 npm-debug.log
 yarn-error.log
+yarn.lock
 
 # other
 .nuxt
