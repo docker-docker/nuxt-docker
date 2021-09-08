@@ -1,6 +1,6 @@
 import * as errorHandler from "errorhandler"
 import * as express from 'express'
-import {Result, ResultCode} from "../common/result";
+import {Result, ResultCode} from "../common/result"
 
 export default (app) => {
     /**
@@ -26,9 +26,9 @@ export default (app) => {
             jsonResult.code = ResultCode.CODE_INTERNAL_ERROR
             jsonResult.message = err.message
             jsonResult.data = err.stack || 'no stack defined'
-            return res.status(ResultCode.CODE_INTERNAL_ERROR).json(jsonResult);
+            return res.status(ResultCode.CODE_INTERNAL_ERROR).json(jsonResult)
         }
-        next();
+        next()
     });
 
 }

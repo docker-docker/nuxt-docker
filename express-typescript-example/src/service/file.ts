@@ -8,6 +8,7 @@ const fileService = {
         logger.info('Saving uploaded file data: %s', JSON.stringify(data))
         const fileUpload = new FileUpload()
         fileUpload.id = idGenerator.nextId().toString()
+        fileUpload.fileToken=idGenerator.nextId().toString()
         await getManager().save(fileUpload)
         return fileUpload
     },
