@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "yarn": "yarn --registry=https://registry.npm.taobao.org"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-validator": "^6.12.1",
+    "multer": "^1.4.3",
+    "cors": "^2.8.5",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.5",
+    "typeorm": "^0.2.37",
+    "mysql2": "^2.3.0"
+  }
+}
