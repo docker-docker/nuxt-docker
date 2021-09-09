@@ -9,6 +9,11 @@
       label-width="100px"
       label-position="left"
     >
+      <el-form-item v-if="uploadFileUrl">
+        <el-link type="primary" :href="uploadFileUrl" underline icon="el-icon-location">
+          {{ uploadFileUrl }}
+        </el-link>
+      </el-form-item>
       <el-form-item label-width="0" prop="fileToken">
         <div v-loading.lock="uploadLoading" class="el-upload__dragger">
           <el-upload
@@ -110,6 +115,7 @@ export default {
         const resData = res.data
         this.uploadToken = resData.token
         file.url = resData.url
+        this.uploadFileUrl = file.url
       } else {
         file.url = ''
         fileList.splice(fileList.length - 1, 1)
