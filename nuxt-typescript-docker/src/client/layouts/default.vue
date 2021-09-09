@@ -4,7 +4,7 @@
       <div v-if="$nuxt.isOffline" class="error">
         <h4>Sorry,Your network is offline!</h4>
       </div>
-      <nuxt v-else id="app" />
+      <nuxt v-else id="index" />
     </client-only>
   </div>
 </template>

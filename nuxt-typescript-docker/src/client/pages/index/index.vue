@@ -1,6 +1,6 @@
 <template>
   <div class="home-content">
-    <h1>演示页面</h1>
+    <h1>演示页面测试用</h1>
     <div class="option">
       <el-row>
         <el-col :md="6" :sm="12">

@@ -1,4 +1,5 @@
 {
+  "compileOnSave": true,
   "compilerOptions": {
     "module": "commonjs",
     "target": "ESNext",
@@ -16,16 +17,15 @@
     "allowJs": true,
     "sourceMap": true,
     "strict": false,
-    "noEmit": true,
+    "noEmit": false,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
   "include": [
-    "src/**/*",
-    "test/**/*"
+    "src",
+    "test"
   ],
   "exclude": [
-    "**/node_modules",
     "node_modules"
   ]
 }

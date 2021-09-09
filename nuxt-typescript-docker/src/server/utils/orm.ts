@@ -24,22 +24,22 @@ const ormOptions: ConnectionOptions = {
 }
 
 class Database {
-    public connection: Connection;
+  public connection: Connection;
 
-    constructor () {
-      this.connectToDB()
-    }
+  constructor () {
+    this.connectToDB()
+  }
 
-    private async connectToDB () {
-      try {
-        const conn = await createConnection(ormOptions)
-        this.connection = conn
-        logger.info(`Database connection success. Connection name: '${conn.name}' Database: '${conn.options.database}'`)
-      } catch (err) {
-        logger.error(`Database connection failed, errors: ${err}`)
-      }
-      return undefined
+  private async connectToDB () {
+    try {
+      const conn = await createConnection(ormOptions)
+      this.connection = conn
+      logger.info(`Database connection success. Connection name: '${conn.name}' Database: '${conn.options.database}'`)
+    } catch (err) {
+      logger.error(`Database connection failed, errors: ${err}`)
     }
+    return undefined
+  }
 }
 
 const db = new Database()

@@ -1,7 +1,15 @@
+import express from 'express'
 import logger from './utils/logger'
-import app from './app'
+import middleware from './middleware'
+// Create Express server
+const app = express()
+middleware(app)
+logger.info(`Start application with mountpath: ${app.mountpath}`)
+// Export express index
+module.exports = app
 
-function startServer () {
+// Start standalone server if directly running
+if (require.main === module) {
   const port = process.env.PORT || 3000
   app.listen(port, () => {
     logger.info(`
@@ -14,5 +22,3 @@ function startServer () {
     process.exit(1)
   })
 }
-
-startServer()

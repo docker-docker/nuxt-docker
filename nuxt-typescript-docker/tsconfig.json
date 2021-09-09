@@ -1,46 +1,27 @@
 {
+  "compileOnSave": true,
   "compilerOptions": {
-    "module": "commonjs",
     "target": "ESNext",
+    "module": "CommonJS",
     "moduleResolution": "Node",
     "baseUrl": ".",
-    "paths": {
-      "*": [
-        "node_modules/*",
-        "server/src/types/*"
-      ],
-      "~/*": [
-        "./client/*"
-      ],
-      "@/*": [
-        "./client/*"
-      ]
-    },
-    "lib": [
-      "ESNext",
-      "ESNext.AsyncIterable",
-      "DOM"
-    ],
-    "types": [
-      "@types/node",
-      "@nuxt/types"
-    ],
-    "outDir": "./dist",
+    "outDir": "./.nuxt-server",
     "esModuleInterop": true,
     "allowJs": true,
     "sourceMap": true,
     "strict": false,
     "noEmit": true,
+    "noUnusedLocals": true,
+    "removeComments": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
   "include": [
-    "server/src/**/*",
-    "server/test/**/*"
+    "src/server"
   ],
   "exclude": [
-    "**/node_modules",
-    "node_modules"
+    "node_modules",
+    "**/*.spec.ts"
   ]
 }

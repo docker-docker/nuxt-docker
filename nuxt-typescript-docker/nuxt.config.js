@@ -1,8 +1,8 @@
-import cfg from './client/config'
+import cfg from './src/client/config'
 
 export default {
   ssr: true,
-  srcDir: 'client/',
+  srcDir: 'src/client/',
   head: {
     title: cfg.site.name,
     meta: [
@@ -110,8 +110,8 @@ export default {
   },
   serverMiddleware: [
     {
-      path: require('./server/src/config').apiUrlPrefix,
-      handler: require('./server/src/app')
+      path: require('./.nuxt-server/config').apiUrlPrefix,
+      handler: require('./.nuxt-server')
     }
   ]
 }

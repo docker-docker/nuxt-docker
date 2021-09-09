@@ -5,7 +5,7 @@ import bodyParser from './body-parser'
 import gzip from './gzip'
 import assets from './assets'
 import ErrorHandler from './error-handler'
-
+import '../utils/orm'
 // full express middlewares: http://expressjs.com/en/resources/middleware/compression.html
 export default (app: core.Express) => {
   app.use(corsMiddleware)

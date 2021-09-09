@@ -1,8 +1,8 @@
-import cfg from './client/config'
+import cfg from './src/client/config'
 
 export default {
   ssr: true,
-  srcDir: 'client/',
+  srcDir: 'src/client/',
   head: {
     title: cfg.site.name,
     meta: [
@@ -109,8 +109,8 @@ export default {
   },
   serverMiddleware: [
     {
-      path: require('./server/config').apiPrefix,
-      handler: require('./server')
+      path: require('./src/server/config').apiPrefix,
+      handler: require('./src/server')
     }
   ]
 }

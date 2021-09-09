@@ -6,7 +6,7 @@ const logger = require('./middlewares/logger')
 const app = express()
 // 1. middlewares
 middlewares(app)
-logger.info('Start application now...')
+logger.info(`Start application with mountpath: ${app.mountpath}`)
 // 2. static router path
 const staticFileLocation = cfg.upload.location
 const staticFilePrefix = cfg.upload.prefix
