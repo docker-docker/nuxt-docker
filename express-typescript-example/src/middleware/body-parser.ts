@@ -1,5 +1,5 @@
 // const bodyParser = require('body-parser')
-import * as express from 'express'
+import express from 'express'
 import cfg from '../config'
 
 // parse various different custom JSON types as JSON

@@ -1,4 +1,4 @@
-import * as express from 'express'
+import express from 'express'
 import multerUpload from "./middleware/multer"
 // import all the controllers here
 import fileController from "./controller/file"

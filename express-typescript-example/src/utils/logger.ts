@@ -1,6 +1,6 @@
-import * as winston from "winston"
+import winston from "winston"
 import 'winston-daily-rotate-file'
-import * as path from "path"
+import path from "path"
 
 import cfg from '../config'
 

@@ -11,15 +11,9 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
-    'quote-props': 'off',
-    'indent': ['error', 2, { 'SwitchCase': 1 }],
-    'no-irregular-whitespace': 'off',
-    'no-useless-escape': 'off',
     'no-console': 'off',
     'no-debugger': 'off',
-    'vue/no-v-html': 'off',
-    'vue/no-template-shadow': 'off',
-    'nuxt/no-cjs-in-config': 'off',
-    'vue/require-default-prop': 'off'
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': ['off']
   }
 }

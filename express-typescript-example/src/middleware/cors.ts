@@ -1,4 +1,4 @@
-import * as cors from 'cors'
+import cors from 'cors'
 
 const corsOptionsExt = {
     origin: '*',

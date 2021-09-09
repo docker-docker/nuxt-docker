@@ -1,5 +1,5 @@
 import cfg from "../config";
-import * as express from "express";
+import express from "express";
 
 const staticUrlPrefix = cfg.upload.staticUrlPrefix
 const staticFileLocation = cfg.upload.location

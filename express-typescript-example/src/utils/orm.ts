@@ -2,14 +2,13 @@ import 'reflect-metadata'
 import {Connection, ConnectionOptions, createConnection} from 'typeorm'
 import cfg from "../config"
 import logger from "./logger"
-import * as path from "path"
+import path from "path"
 
 const entitiesPath = path.join(__dirname, '/../entities/*{.ts,.js}')
 const ormOptions: ConnectionOptions = {
     name: 'default',
     type: 'mysql',
     timezone: 'local',
-    acquireTimeout: cfg.db.acquireTimeout,
     connectTimeout: cfg.db.connectTimeout,
     supportBigNumbers: true,
     bigNumberStrings: true,

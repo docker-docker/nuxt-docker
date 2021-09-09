@@ -1,5 +1,5 @@
-import * as errorHandler from "errorhandler"
-import * as express from 'express'
+import errorHandler from "errorhandler"
+import express from 'express'
 import {Result, ResultCode} from "../common/result"
 
 export default (app) => {

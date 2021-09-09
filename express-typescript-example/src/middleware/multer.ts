@@ -1,7 +1,7 @@
-import * as path from 'path'
-import * as fs from 'fs'
+import path from 'path'
+import fs from 'fs'
 
-import * as multer from 'multer'
+import multer from 'multer'
 // 设置对应的文件名
 import cfg from '../config'
 import idGenerator from "../utils/id-generator"

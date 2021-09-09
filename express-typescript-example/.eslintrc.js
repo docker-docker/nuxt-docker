@@ -8,11 +8,11 @@ module.exports = {
     '@nuxtjs/eslint-config-typescript',
     'plugin:nuxt/recommended'
   ],
-  plugins: [],
   // add your custom rules here
   rules: {
-    'no-unused-vars': 'off',
     'no-console': 'off',
+    'no-debugger': 'off',
+    'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': ['off']
   }
 }

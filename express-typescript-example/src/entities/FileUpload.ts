@@ -10,8 +10,7 @@ export class FileUpload extends BaseEntity {
         primary: true,
         name: "id",
         comment: "记录唯一标识id",
-        unsigned: true,
-        default: 2
+        unsigned: true
     })
     id: string;
 

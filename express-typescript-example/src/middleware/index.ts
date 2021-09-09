@@ -1,4 +1,4 @@
-import * as core from "express-serve-static-core"
+import core from "express-serve-static-core"
 import corsMiddleware from "./cors"
 import bodyParser from './body-parser'
 import gzip from "./gzip"
