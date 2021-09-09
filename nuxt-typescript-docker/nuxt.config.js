@@ -110,7 +110,7 @@ export default {
   },
   serverMiddleware: [
     {
-      path: require('./.nuxt-server/config').apiUrlPrefix,
+      path: require('./.nuxt-server/config').default.apiUrlPrefix,
       handler: require('./.nuxt-server')
     }
   ]

@@ -9,7 +9,7 @@ const fileController = {
   upload: async (req: Request, res: Response, next: NextFunction) => {
     await check('token', 'token cannot be blank').not().isEmpty().run(req)
     await checkSchema({
-      'file': {
+      file: {
         custom: {
           options: (value, { req, location, path }) => !!req.files[path],
           errorMessage: 'You should upload a file up to 50Mb'
@@ -50,8 +50,8 @@ const fileController = {
         url: uploadUrl
       }
       // 插入数据库
-      const saveResponse = fileService.upload(resData)
-      logger.info(`Saving file return: ${JSON.stringify(saveResponse)}`)
+      const saveResponse = await fileService.upload(resData, uploadPath, userId)
+      logger.info(`Saving file: ${JSON.stringify(saveResponse)}`)
 
       result.code = ResultCode.CODE_SUCCESS
       result.data = resData
