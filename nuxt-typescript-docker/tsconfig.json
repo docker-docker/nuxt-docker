@@ -10,7 +10,7 @@
     "allowJs": true,
     "sourceMap": true,
     "strict": false,
-    "noEmit": true,
+    "noEmit": false,
     "noUnusedLocals": true,
     "removeComments": true,
     "allowSyntheticDefaultImports": true,

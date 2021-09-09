@@ -1,9 +1,10 @@
 import 'reflect-metadata'
+import path from 'path'
 import { Connection, ConnectionOptions, createConnection } from 'typeorm'
 import cfg from '../config'
 import logger from './logger'
 
-const entitiesPath = '../entities/*.ts'
+const entitiesPath = [path.join(__dirname, '..', 'entities', '**', '*{.ts,.js}')]
 const ormOptions: ConnectionOptions = {
   name: 'default',
   type: 'mysql',
@@ -18,7 +19,7 @@ const ormOptions: ConnectionOptions = {
   password: cfg.db.password,
   database: cfg.db.database,
   // orm config
-  entities: [entitiesPath],
+  entities: entitiesPath,
   synchronize: false,
   logging: false
 }
