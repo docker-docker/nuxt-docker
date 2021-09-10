@@ -50,8 +50,8 @@ const fileController = {
         url: uploadUrl
       }
       // 插入数据库
-      const saveResponse = await fileService.upload(resData, uploadPath, userId)
-      logger.info(`Saving file: ${JSON.stringify(saveResponse)}`)
+      // const saveResponse = await fileService.upload(resData, uploadPath, userId)
+      // logger.info(`Saving file: ${JSON.stringify(saveResponse)}`)
 
       result.code = ResultCode.CODE_SUCCESS
       result.data = resData
