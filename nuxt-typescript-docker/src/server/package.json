@@ -1,48 +1,5 @@
 {
-  "name": "nuxt-typescript-docker",
-  "version": "1.0.0",
-  "description": "Sample Nuxt Project with typescript support",
-  "author": "Walter Hu",
-  "private": false,
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/docker-docker/nuxt-docker.git"
-  },
-  "keywords": [
-    "vue",
-    "ssr",
-    "docker"
-  ],
-  "files": [
-    "package.json",
-    ".dist",
-    "dist"
-  ],
-  "main": ".nuxt/index.js",
-  "scripts": {
-    "yarn": "yarn --registry=https://registry.npm.taobao.org",
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "generate": "nuxt generate",
-    "start": "nuxt start",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "ts": "tsc",
-    "generate-entity": "typeorm-model-generator -h localhost -p 3306 -u syscorer -x s6s@#@!L0ngh -d sff -e mysql -o src/entities --noConfig --a"
-  },
   "dependencies": {
-    "@nuxtjs/axios": "^5.13.6",
-    "@nuxtjs/dayjs": "^1.4.0",
-    "@nuxtjs/robots": "^2.5.0",
-    "@nuxtjs/sitemap": "^2.4.0",
-    "better-snowflake": "^1.0.6",
-    "crypto-js": "^4.1.1",
-    "dayjs": "^1.10.6",
-    "element-ui": "^2.15.5",
-    "normalize.css": "^8.0.1",
-    "nuxt": "^2.15.8",
-    "secure-ls": "^1.2.6",
-    "vuex-persistedstate": "^4.0.0",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "errorhandler": "^1.5.1",

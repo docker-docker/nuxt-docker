@@ -4,7 +4,7 @@ import middleware from './middleware'
 // Create Express server
 const app = express()
 middleware(app)
-logger.info(`Start application with mountpath: ${app.mountpath}`)
+logger.info(`Start application with path: ${app.mountpath}`)
 // Export express index
 module.exports = app
 
