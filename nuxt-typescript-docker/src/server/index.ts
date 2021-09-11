@@ -1,6 +1,8 @@
 import express from 'express'
 import logger from './utils/logger'
 import middleware from './middleware'
+import cfg from './config'
+import routes from './routes'
 // Create Express server
 const app = express()
 middleware(app)
@@ -11,10 +13,11 @@ module.exports = app
 // Start standalone server if directly running
 if (require.main === module) {
   const port = process.env.PORT || 3000
+  app.use(cfg.apiUrlPrefix, routes)
   app.listen(port, () => {
     logger.info(`
       ################################################
-       <  Server listening on port: ${port} >
+       [  Server listening on port: ${port} ]
       ################################################
     `)
   }).on('error', (err) => {
