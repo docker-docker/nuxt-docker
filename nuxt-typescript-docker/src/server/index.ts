@@ -17,7 +17,7 @@ if (require.main === module) {
   app.listen(port, () => {
     logger.info(`
       ################################################
-       [  Server listening on port: ${port} ]
+       [  Server listening on port： http://localhost:${port} ]
       ################################################
     `)
   }).on('error', (err) => {

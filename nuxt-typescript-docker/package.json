@@ -27,7 +27,8 @@
     "generate": "nuxt generate",
     "start": "nuxt start",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "ts": "tsc",
+    "dev-ts": "nodemon",
+    "build-ts": "tsc",
     "generate-entity": "typeorm-model-generator -h localhost -p 3306 -u syscorer -x s6s@#@!L0ngh -d sff -e mysql -o src/server/entities --noConfig --a"
   },
   "dependencies": {
