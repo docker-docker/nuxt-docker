@@ -17,7 +17,7 @@ if (require.main === module) {
   app.listen(port, () => {
     logger.info(`
       ################################################
-       [  Server listening on port： http://localhost:${port} ]
+       [  Server listening on port： http://localhost:${port}${cfg.apiUrlPrefix} ]
       ################################################
     `)
   }).on('error', (err) => {

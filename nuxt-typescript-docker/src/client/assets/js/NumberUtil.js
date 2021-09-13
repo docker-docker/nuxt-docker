@@ -3,7 +3,7 @@
  * @returns {*}
  */
 export const snowflakeId = function () {
-  const { Snowflake } = require('better-snowflake')
+  const {Snowflake} = require('better-snowflake')
   const workerId = randomNum(0, 31)
   const datacenterId = randomNum(0, 31)
   const idWorker = new Snowflake(workerId, datacenterId)
@@ -60,6 +60,10 @@ export const uuid = function (prefix) {
   const random = s.join('')
   unique++
   return (prefix ? prefix + '_' : '') + random + unique + String(time)
+}
+export const uuidNew = function () {
+  const crypto = require('crypto')
+  return crypto.randomUUID()
 }
 /**
  * 将阿拉伯数字翻译成中文的大写数字

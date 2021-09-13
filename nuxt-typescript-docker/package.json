@@ -11,13 +11,14 @@
   },
   "keywords": [
     "vue",
-    "ssr",
-    "docker"
+    "nuxt",
+    "docker",
+    "typescript"
   ],
   "files": [
     "package.json",
-    ".dist",
-    "dist"
+    ".nuxt",
+    ".nuxt-server"
   ],
   "main": ".nuxt/index.js",
   "scripts": {
