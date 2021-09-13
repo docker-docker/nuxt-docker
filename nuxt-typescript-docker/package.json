@@ -82,7 +82,6 @@
     "cross-env": "^7.0.3",
     "eslint": "^7.29.0",
     "eslint-plugin-nuxt": "^2.0.0",
-    "eslint-plugin-vue": "^7.12.1",
     "jest": "^27.0.5",
     "less": "^4.1.1",
     "less-loader": "^10.0.1",
