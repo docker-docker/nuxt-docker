@@ -1,0 +1,8 @@
+version: "3.8"
+services:
+  nuxt:
+    build:
+      dockerfile: Dockerfile
+    container_name: nuxter
+    restart: always
+

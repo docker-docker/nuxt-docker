@@ -3,7 +3,7 @@
  * @returns {*}
  */
 export const snowflakeId = function () {
-  const {Snowflake} = require('better-snowflake')
+  const { Snowflake } = require('better-snowflake')
   const workerId = randomNum(0, 31)
   const datacenterId = randomNum(0, 31)
   const idWorker = new Snowflake(workerId, datacenterId)

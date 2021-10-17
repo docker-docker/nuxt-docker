@@ -43,6 +43,83 @@
         </div>
       </el-form-item>
     </el-form>
+    <el-divider />
+    <div class="file-table">
+      <el-table
+        ref="table"
+        v-loading="table.loading"
+        :data="table.data"
+        :row-key="table.id"
+        border
+        style="width: 100%"
+        @selection-change="handleTableSelectionChange"
+      >
+        <el-table-column
+          type="selection"
+          min-width="55"
+        />
+        <el-table-column
+          label="ID"
+          prop="id"
+          min-width="40"
+        />
+        <el-table-column
+          label="Original Name"
+          prop="original_name"
+          align="center"
+          header-align="center"
+        />
+        <el-table-column
+          label="File Name"
+          prop="file_name"
+          align="center"
+          header-align="center"
+        />
+        <el-table-column
+          label="Url"
+          align="center"
+          header-align="center"
+        >
+          <template slot-scope="scope">
+            <el-link type="primary" :href="scope.row.url" underline icon="el-icon-location"><b>{{ scope.row.url }}</b></el-link>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="Create Time"
+          prop="create_time"
+          align="center"
+          header-align="center"
+          min-width="60"
+        />
+        <el-table-column
+          fixed="right"
+          label="Operation"
+          align="center"
+          header-align="center"
+        >
+          <template slot-scope="scope">
+            <el-button
+              type="danger"
+              icon="el-icon-delete"
+              @click.stop="handleRowDeleteShow(scope.row,scope.$index)"
+            >
+              Delete
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div style="float: right;margin-top: 15px;margin-bottom: 50px">
+        <el-pagination
+          :current-page="page.current"
+          :page-sizes="[20, 50, 100, 200]"
+          :page-size="page.pageSize"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="page.total"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -64,12 +141,23 @@ export default {
       uploadDisabled: false,
       uploadAction: '',
       uploadToken: '',
-      uploadLimit: 1024,
+      uploadLimit: 2048, // MB
       uploadFileList: [],
       uploadFileUrl: '',
       uploadPreviewDlgShow: false,
-      uploadPreviewDlgImgUrl: ''
+      uploadPreviewDlgImgUrl: '',
       // 文件上传结束
+      table: {
+        loading: false,
+        selectList: [],
+        id: 'id',
+        data: []
+      },
+      page: {
+        current: 1,
+        pageSize: 20,
+        total: 0
+      }
     }
   },
   head () {
@@ -87,11 +175,14 @@ export default {
   computed: {
     ...mapGetters(['site'])
   },
+  mounted () {
+    this.loadData()
+  },
   methods: {
     handleUploadBefore (file) {
-      const isRightSize = file.size / 1024 / 1024 < 15
+      const isRightSize = file.size / 1024 / 1024 < this.uploadLimit
       if (!isRightSize) {
-        this.$message.error('File maximum size is 15MB')
+        this.$message.error(`File maximum size is ${this.uploadLimit}`)
       }
       // const isAccept = /\.(jpe?g|png|gif|bmp)$/i.test(file.type)
       // if (!isAccept) {
@@ -116,6 +207,8 @@ export default {
         this.uploadToken = resData.token
         file.url = resData.url
         this.uploadFileUrl = file.url
+        // refresh table list
+        this.loadData()
       } else {
         file.url = ''
         fileList.splice(fileList.length - 1, 1)
@@ -169,6 +262,8 @@ export default {
             showClose: true,
             message: 'Delete file succesfully!'
           })
+          // refresh the table
+          this.loadData()
         } else {
           this.$message({
             type: 'error',
@@ -180,6 +275,78 @@ export default {
       }).finally(() => {
         this.uploadLoading = false
       })
+    },
+    // table start
+    loadData (pagination, filters, sorter) {
+      const postData = {
+        pageNum: (pagination && pagination.current) || this.page.current,
+        pageSize: (pagination && pagination.pageSize) || this.page.pageSize
+      }
+      this.table.loading = true
+      upload.getFilesList(postData).then((res) => {
+        const resCode = res.code
+        if (resCode === 0) {
+          const resData = res.data
+          this.page.total = 0
+          this.table.data = resData
+        }
+      }).finally(() => {
+        this.table.loading = false
+      })
+    },
+    handleTableSelectionChange (selection) {
+      // 单行或多行选择回调
+      this.table.selectList = selection
+    },
+    handleSizeChange (size) {
+      this.page.pageSize = size
+      this.page.current = 1
+      this.loadData()
+    },
+    handleCurrentChange (page) {
+      this.page.current = page
+      this.loadData()
+    },
+    handleRowDeleteShow (row, index) {
+      this.$confirm('Are you sure to delete this record?', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'CANCEL',
+        type: 'warning'
+      })
+        .then(() => {
+          this.table.loading = true
+          const idParams = { url: row.url }
+          upload.delFile(idParams).then((res) => {
+            const resCode = res.code
+            const message = res.message
+            if (resCode === 0) {
+              this.loadData()
+              this.$message({
+                type: 'success',
+                offset: 100,
+                message: 'Delete record successfully!'
+              })
+            } else {
+              console.log('Delete record failed, error: ', message)
+              this.$message({
+                type: 'error',
+                offset: 100,
+                message
+              })
+            }
+          }).catch((err) => {
+            console.log('Delete record exception, exception: ', err)
+            this.$message({
+              type: 'error',
+              offset: 100,
+              message: 'Delete record exception, please retry later!'
+            })
+          }).finally(() => {
+            this.table.loading = false
+          })
+        }).catch(() => {
+        // 取消操作
+        })
     }
   }
 

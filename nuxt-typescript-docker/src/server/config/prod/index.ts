@@ -1,3 +1,5 @@
+import paths from '../../paths'
+
 const cfg = {
   logs: '/www/logs',
   upload: {
@@ -15,7 +17,7 @@ const cfg = {
     port: 3306,
     user: 'root',
     password: 'root',
-    database: 'test',
+    database: paths.dbPath,
     connectTimeout: 10 * 1000,
     supportBigNumbers: true,
     bigNumberStrings: true,

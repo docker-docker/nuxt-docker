@@ -10,8 +10,9 @@ const router = express.Router()
 router.post('/file/upload', multerUpload.fields([
   { name: 'file', maxCount: 1 }
 ]), fileController.upload)
-router.post('/file/del', fileController.delete)
+router.post('/file/del', fileController.deleteByUrl)
 router.post('/file/token', fileController.getFileListByToken)
+router.post('/file/list', fileController.listPageFiles)
 
 export const routesPath = (app) => {
   const routesTable = app._router.stack.reduce(

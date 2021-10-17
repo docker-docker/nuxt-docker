@@ -1,8 +1,8 @@
 module.exports = {
   apps: [{
     name: 'www',
+    // exec_mode: 'cluster',
     instances: 'max',
-    exec_mode: 'cluster',
     autorestart: true,
     max_restarts: 3,
     restart_delay: 5000,

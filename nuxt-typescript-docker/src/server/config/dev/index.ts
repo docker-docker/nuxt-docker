@@ -1,3 +1,5 @@
+import paths from '../../paths'
+
 const cfg = {
   logs: 'D:\\logs',
   upload: {
@@ -16,7 +18,7 @@ const cfg = {
     port: 3306,
     user: 'syscorer',
     password: 's6s@#@!L0ngh',
-    database: 'sff',
+    database: paths.dbPath,
     connectTimeout: 10 * 1000,
     supportBigNumbers: true,
     bigNumberStrings: true,

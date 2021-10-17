@@ -5,24 +5,32 @@ import cfg from '../config'
 import logger from './logger'
 
 const entitiesPath = [path.join(__dirname, '..', 'entities', '**', '*{.ts,.js}')]
-const ormOptions: ConnectionOptions = {
+const sqliteOrmOptions: ConnectionOptions = {
   name: 'default',
-  type: 'mysql',
-  timezone: 'local',
-  connectTimeout: cfg.db.connectTimeout,
-  supportBigNumbers: true,
-  bigNumberStrings: true,
-  // data config
-  host: cfg.db.host,
-  port: cfg.db.port,
-  username: cfg.db.user,
-  password: cfg.db.password,
+  type: 'sqlite',
   database: cfg.db.database,
-  // orm config
   entities: entitiesPath,
   synchronize: false,
-  logging: false
+  logging: true
 }
+// const mysqlOrmOptions: ConnectionOptions = {
+//   name: 'default',
+//   type: 'mysql',
+//   timezone: 'local',
+//   connectTimeout: cfg.db.connectTimeout,
+//   supportBigNumbers: true,
+//   bigNumberStrings: true,
+//   // data config
+//   host: cfg.db.host,
+//   port: cfg.db.port,
+//   username: cfg.db.user,
+//   password: cfg.db.password,
+//   database: cfg.db.database,
+//   // orm config
+//   entities: entitiesPath,
+//   synchronize: false,
+//   logging: false
+// }
 
 class Database {
   public connection: Connection;
@@ -33,7 +41,7 @@ class Database {
 
   private async connectToDB () {
     try {
-      const conn = await createConnection(ormOptions)
+      const conn = await createConnection(sqliteOrmOptions)
       this.connection = conn
       logger.info(`Database connection success. Connection name: '${conn.name}' Database: '${conn.options.database}'`)
     } catch (err) {

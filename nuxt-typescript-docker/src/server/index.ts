@@ -12,6 +12,7 @@ module.exports = app
 
 // Start standalone server if directly running
 if (require.main === module) {
+  process.env.NODE_ENV = 'development'
   const port = process.env.PORT || 3000
   app.use(cfg.apiUrlPrefix, routes)
   app.listen(port, () => {
