@@ -1,5 +1,5 @@
 const cfg = {
-  baseUrl: 'https://demo.seniortesting.club/api',
+  baseUrl: 'https://demo.memego.xyz/api',
   CDNBaseUrl: '/res/'
 }
 export default cfg

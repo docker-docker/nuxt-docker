@@ -1,7 +1,7 @@
 {
   "name": "nuxt-typescript-docker",
   "version": "1.0.0",
-  "description": "Sample Nuxt Project with typescript support",
+  "description": "Sample Nuxt Project with typescript support for client and server",
   "author": "Walter Hu",
   "private": false,
   "license": "MIT",
